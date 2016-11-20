@@ -1,7 +1,10 @@
+# Dashing with MSSQL
+This is a fork of [frvi/dashing](https://hub.docker.com/r/frvi/dashing) with the inculsion of freetds-dev and the tiny_tds gem.
+
 # Dashing
 Run [Dashing](http://dashing.io/) in a [Docker](http://docker.io/) container.
 
-Link: [frvi/dashing](https://registry.hub.docker.com/u/frvi/dashing/)
+Link: [t0mburtn/dashing-mssql](https://hub.docker.com/r/t0mburtn/dashing-mssql/)
 
 
 ## Run
@@ -27,6 +30,26 @@ To provide a custom dashboard, use container volume **/dashboards**:
 To provide custom jobs, use container volume **/jobs**:
 
 ```docker run -v=/my/cool/job:/jobs -d -p 8080:3030 frvi/dashing```
+
+### Job Querying MSSQL
+```
+#!/bin/env ruby
+# encoding: utf-8
+
+require 'tiny_tds'
+
+def GetTransactionCount()
+    client = TinyTds::Client.new(:username => 'USERNAME', :password => 'MYPASSWORD', :host => 'HOST', :database => 'DATABASENAME', :port => '1433')
+    rows = client.execute("SELECT COUNT(*) AS transcount FROM transactions")
+    rows.each do |row|
+      return row['transcount']
+    end
+end
+
+SCHEDULER.every '10s' do
+  send_event('trnasactions', { current: GetTransactionsCount() })
+end
+```
 
 ### Widgets
 To install custom widgets supply the gist IDs of the widgets as an environment variable:
