@@ -1,5 +1,5 @@
 # Dashing with MSSQL
-This is a fork of [frvi/dashing](https://hub.docker.com/r/frvi/dashing) with the inculsion of freetds-dev and the tiny_tds gem.
+This is a fork of [frvi/dashing](https://hub.docker.com/r/frvi/dashing) with the inclusion of freetds-dev and the tiny_tds gem.
 
 # Dashing
 Run [Dashing](http://dashing.io/) in a [Docker](http://docker.io/) container.
