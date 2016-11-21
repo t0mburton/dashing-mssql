@@ -47,7 +47,7 @@ def GetTransactionCount()
 end
 
 SCHEDULER.every '10s' do
-  send_event('trnasactions', { current: GetTransactionsCount() })
+  send_event('transactions', { current: GetTransactionsCount() })
 end
 ```
 
